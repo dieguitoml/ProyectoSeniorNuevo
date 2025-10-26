@@ -66,6 +66,7 @@ function App() {
         <Route path="/registro-senior-paso-2" element={<RegistroSeniorPaso2 />} />
         <Route path="/menu-no-senior" element={<MenuNoSenior />} />
         <Route path="/menu-senior" element={<MenuSenior />} />
+        <Route path="/mi-perfil-senior" element={<MiPerfilNoSenior />} />
         <Route path="/mi-perfil-no-senior" element={<MiPerfilNoSenior />} />
         <Route path="/mis-anuncios" element={<MisAnunciosNoSenior />} />
         <Route path="/anuncio/:id" element={<AnuncioDetalle />} />

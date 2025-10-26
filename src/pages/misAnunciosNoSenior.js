@@ -23,14 +23,14 @@ function MisAnunciosNoSenior() {
             <div className="anuncio-content-wrapper">
               {/* Aquí se podría mostrar una imagen o más detalles */}
             </div>
-            <p>{anuncio.titulo}</p>
+            <p className = "titulo-anuncio">{anuncio.titulo}</p>
           </button>
         ))}
         <button className="anuncio-preview nuevo-anuncio">
           <div className="anuncio-content-wrapper">
             <span className="plus-icon">+</span>
           </div>
-          <p>Nuevo anuncio</p>
+          <p className="titulo-nuevo-anuncio">Nuevo anuncio</p>
         </button>
       </main>
     </div>
