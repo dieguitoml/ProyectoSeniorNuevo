@@ -1,0 +1,9 @@
+#Ignorar dependencias del frontend
+node_modules/
+
+#Ignorar entorno virtual de Python
+venv/
+
+#Archivos temporales
+__pycache__/
+*.pyc
