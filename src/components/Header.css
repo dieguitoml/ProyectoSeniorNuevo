@@ -12,14 +12,25 @@
 .chat-user-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
+  justify-content: center;
+  text-align: left;
 }
 
-.chat-profile-pic {
-  width: 32px;
-  height: 32px;
+.new-app-header .chat-profile-pic {
+  width: 8rem !important;   /* ✅ fuerza el tamaño */
+  height: 8rem !important;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 3px solid white;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.chat-username {
+  font-size: 5rem;
+  font-weight: 700;
+  color: white;
 }
 
 
@@ -29,7 +40,10 @@
   transform: translateX(-50%);
   margin: 0;
   font-size: 4rem;
-  font-weight: bold;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+  z-index: 1;
 }
 
 .header-btn {

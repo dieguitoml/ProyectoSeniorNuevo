@@ -33,17 +33,19 @@ function Header({ title, showBack = true, showLogout = false  , showTitle = true
         <h1 className="header-title">{title}</h1>
       )}
       {!showTitle && (
-        <button>
-          <div className = "header-title chat-user-info">
-            <img
-              src={otherUser?.imagen || perfilEjemplo}
-              alt="Perfil"
-              className="chat-profile-pic"
-            />
-            <span>{otherUser?.name || "Cargando..."}</span>
-          </div>
-        </button>
-      )}
+  <div
+    className="header-title chat-user-info"
+    onClick={() => navigate(`/perfil/${otherUser?.id}`)}
+    style={{ cursor: "pointer" }}
+  >
+    <img
+      src={otherUser?.imagen || perfilEjemplo}
+      alt="Perfil"
+      className="chat-profile-pic"
+    />
+    <span className="chat-username">{otherUser?.name || "Cargando..."}</span>
+  </div>
+)}
 
       {showLogout ? (
         <button onClick={handleLogout} className="header-btn logout-btn">
