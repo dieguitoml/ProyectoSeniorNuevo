@@ -8,6 +8,21 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+
+.chat-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-profile-pic {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
 .header-title {
   position: absolute;
   left: 50%;
