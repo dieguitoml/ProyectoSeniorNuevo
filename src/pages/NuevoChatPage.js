@@ -13,12 +13,12 @@ export default function NuevoChatPage() {
   useEffect(() => {
     const storedUserId = localStorage.getItem("usuario_id");
     console.log("ID almacenado:", storedUserId);
-    
+
     if (!usuarioId || isNaN(usuarioId)) {
       console.log("ID de usuario no válido, redirigiendo...");
       return navigate("/login");
     }
-    
+
     console.log("Haciendo fetch del roster para usuario ID:", usuarioId);
     fetch(`${config.backendUrl}/roster/${usuarioId}`)
       .then((res) => res.json())
@@ -35,36 +35,37 @@ export default function NuevoChatPage() {
 
   const iniciarChat = (otherId) => {
     console.log("Iniciando chat con usuario ID:", otherId);
-    // For now, just navigate. A more robust solution would be to
-    // create the conversation here if it doesn't exist.
     navigate(`/chat/${otherId}`);
   };
 
   return (
-    <div className="App">
+    <div className="nuevo-chat-page">
       <Header title="Nuevo Chat" />
-      <main className="form-page">
+      <main className="nuevo-chat-main">
         {usuarios.length === 0 ? (
-          <p>No hay otros usuarios registrados.</p>
+          <p className="empty">No hay otros usuarios registrados.</p>
         ) : (
-          <div className="usuarios-list">
+          <div className="user-list">
             {usuarios.map((u) => (
               <div
                 key={u.id}
-                className="usuario-item"
+                className="user-item"
                 onClick={() => iniciarChat(u.id)}
               >
                 <img
                   src={u.imagen || perfilEjemplo}
                   alt={u.name}
-                  className="usuario-avatar"
+                  className="avatar"
                 />
-                <span className="usuario-name">{u.name}</span>
+                <div className="user-info">
+                  <span className="username">{u.name}</span>
+                  <span className="status">Toca para chatear 💬</span>
+                </div>
               </div>
             ))}
           </div>
         )}
-        <button className="btn" onClick={() => navigate("/chat")}>
+        <button className="btn-volver" onClick={() => navigate("/chat")}>
           ← Volver
         </button>
       </main>
