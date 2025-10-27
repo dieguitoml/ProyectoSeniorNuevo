@@ -34,7 +34,7 @@ function LoginPage() {
 
   return (
     <div className="App">
-      <Header title="Iniciar sesión" />
+      <Header classname="Iniciar sesión" />
       <main className="form-page">
         <h2>Iniciar sesión</h2>
         <input
@@ -56,6 +56,9 @@ function LoginPage() {
         </button>
         {mensaje && <p>{mensaje}</p>}
         <p>
+          <span 
+            style={{ cursor: "pointer", color: "#FFA424", fontSize: "1rem" }}
+          ></span>
           ¿No tienes cuenta?
           <span
             onClick={() => navigate("/registro")}
