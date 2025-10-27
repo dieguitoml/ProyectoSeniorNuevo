@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.jpg";
+import Header from "../components/Header";
 
 function RegistroSeniorPaso1() {
   const [nombre, setNombre] = useState("");
@@ -14,9 +14,7 @@ function RegistroSeniorPaso1() {
 
   return (
     <div className="App">
-      <header className="app-header">
-        <img src={logo} alt="Logo Acción Senior" className="logo" />
-      </header>
+      <Header className="app-header" />
       <main className="form-page">
         <h2>Registro - Paso 1</h2>
         <input

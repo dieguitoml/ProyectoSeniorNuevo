@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
 import config from "../config";
+import Header from "../components/Header";
 
 function LoginSeniorPaso2() {
   const location = useLocation();
@@ -37,9 +37,7 @@ function LoginSeniorPaso2() {
 
   return (
     <div className="App">
-      <header className="app-header">
-        <img src={logo} alt="Logo Acción Senior" className="logo" />
-      </header>
+      <Header className="app-header" />
       <main className="form-page">
         <h2>Introduce tu contraseña</h2>
         <input

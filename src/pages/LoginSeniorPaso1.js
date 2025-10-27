@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.jpg";
+import Header from "../components/Header";
 
 function LoginSeniorPaso1() {
   const [email, setEmail] = useState("");
@@ -14,9 +14,7 @@ function LoginSeniorPaso1() {
 
   return (
     <div className="App">
-      <header className="app-header">
-        <img src={logo} alt="Logo Acción Senior" className="logo" />
-      </header>
+      <Header className="app-header" />
       <main className="form-page">
         <h2>Introduce tu correo</h2>
         <input
@@ -25,6 +23,7 @@ function LoginSeniorPaso1() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+        
         <button className="btn" onClick={handleNext}>
           Siguiente
         </button>

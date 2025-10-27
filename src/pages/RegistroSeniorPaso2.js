@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import logo from "../assets/logo.jpg";
 import config from "../config";
+import Header from "../components/Header";
+
 
 function RegistroSeniorPaso2() {
   const location = useLocation();
@@ -45,9 +46,7 @@ function RegistroSeniorPaso2() {
 
   return (
     <div className="App">
-      <header className="app-header">
-        <img src={logo} alt="Logo Acción Senior" className="logo" />
-      </header>
+      <Header className="app-header"/>
       <main className="form-page">
         <h2>Registro - Paso 2</h2>
         <input

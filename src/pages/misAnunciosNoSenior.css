@@ -52,9 +52,25 @@
 .nuevo-anuncio .anuncio-content-wrapper {
   border-style: dashed;
 }
+.titulo-anuncio {
+  font-size: 2rem;       
+  font-weight: 700;      
+  color: #333;      
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.titulo-nuevo-anuncio {
+  font-size: 2rem;     
+  font-weight: 700;      
+  color: #f28c13;        
+  text-align: center;
+  margin-top: 0.5rem;
+}
 
 .plus-icon {
-  font-size: 3rem;
+  font-size: 4rem;
+  font-weight: bold;
   color: #4A6B5D;
 }
 
