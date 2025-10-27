@@ -9,7 +9,7 @@ function Header({ title, showBack = true, showLogout = false  , showTitle = true
 
   
   const handleBack = () => {
-     if (location.pathname == "/chat") {
+     if (location.pathname === "/chat") {
       navigate("/menu-senior", { replace: true });
       return;
     } else {

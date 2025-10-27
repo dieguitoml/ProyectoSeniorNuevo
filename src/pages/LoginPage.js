@@ -55,17 +55,18 @@ function LoginPage() {
           Entrar
         </button>
         {mensaje && <p>{mensaje}</p>}
-        <p>
-          <span 
-            style={{ cursor: "pointer", color: "#FFA424", fontSize: "1rem" }}
-          ></span>
-          ¿No tienes cuenta?
-          <span
-            onClick={() => navigate("/registro")}
-            style={{ cursor: "pointer", color: "#FFA424", fontSize: "1rem" }}
-          >
-            Regístrate
-          </span>
+  <p style={{ fontSize: "0.9rem", textAlign: "center" }}>
+    <span
+      style={{ cursor: "pointer", color: "#000000", fontSize: "1.5rem" }}
+    >
+      ¿No tienes cuenta?{" "}
+    </span>
+  <span
+    onClick={() => navigate("/registro")}
+    style={{ cursor: "pointer", color: "#FFA424", fontSize: "1.5rem", fontWeight: "bold" }}
+  >
+    Regístrate
+  </span>
         </p>
       </main>
     </div>
