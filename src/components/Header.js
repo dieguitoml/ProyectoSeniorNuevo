@@ -33,16 +33,17 @@ function Header({ title, showBack = true, showLogout = false  , showTitle = true
         <h1 className="header-title">{title}</h1>
       )}
       {!showTitle && (
-        <button>
-          <div className = "header-title chat-user-info">
-            <img
-              src={otherUser?.imagen || perfilEjemplo}
-              alt="Perfil"
-              className="chat-profile-pic"
-            />
-            <span>{otherUser?.name || "Cargando..."}</span>
+        <button type="button" aria-label={otherUser?.name || "Abrir chat"}>
+          <div className="header-title chat-user-info">
+           <img
+             src={otherUser?.imagen || perfilEjemplo}
+             alt={otherUser?.name ? `${otherUser.name} - Perfil` : "Imagen de perfil"}
+             className="chat-profile-pic"
+             loading="lazy"
+           />
+           <span>{otherUser?.name ?? "Cargando..."}</span>
           </div>
-        </button>
+          </button>
       )}
 
       {showLogout ? (
