@@ -70,7 +70,7 @@ export default function ChatConversacion() {
   return (
     <div className="chat-conversation">
       <header className="new-app-header">
-        <button onClick={() => navigate("/chats")} className="header-btn back-btn">
+        <button onClick={() => navigate("/chat")} className="header-btn back-btn">
           <span>&larr;</span> Atrás
         </button>
         <div className="header-title chat-user-info">
