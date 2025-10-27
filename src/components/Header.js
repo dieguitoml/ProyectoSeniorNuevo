@@ -5,10 +5,10 @@ function Header({ title }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  //  ESTO NO FUNCIONAAAA PARA CHATS
+  
   const handleBack = () => {
-     if (location.pathname.startsWith("/chat/") && location.pathname !== "/chat") {
-      navigate("/chat", { replace: true });
+     if (location.pathname == "/chat") {
+      navigate("/menu-senior", { replace: true });
       return;
     } else {
       navigate(-1); 
