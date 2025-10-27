@@ -7,3 +7,5 @@ venv/
 #Archivos temporales
 __pycache__/
 *.pyc
+#ignorar base de datos
+*.db

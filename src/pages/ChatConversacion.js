@@ -70,7 +70,7 @@ export default function ChatConversacion() {
 
   return (
     <div className="chat-conversation">
-      <Header className="new-app-header"  showBack={true} showTitle={false} showLogout={false} otherUser={otherUser}>
+      <Header className="new-app-header"  showBack={true} showTitle={false} showLogout={false} otherUser={otherUser} />
       <div className="mensajes-container" ref={mensajesContainerRef}>
         {mensajes.map((mensaje, index) => (
           <div
@@ -86,7 +86,6 @@ export default function ChatConversacion() {
           </div>
         ))}
       </div>
-      </Header>
       <form onSubmit={enviarMensaje} className="chat-input-container">
         <input
           type="text"
