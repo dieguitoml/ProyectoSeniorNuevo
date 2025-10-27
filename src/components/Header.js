@@ -3,7 +3,7 @@ import './Header.css';
 import perfilEjemplo from "../assets/perfil-generico.png";
 
 
-function Header({ title, showBack = true, showLogout = false  , showTitle = true}) {
+function Header({ title, showBack = true, showLogout = false  , showTitle = true, otherUser = null}) {
   const navigate = useNavigate();
   const location = useLocation();
 

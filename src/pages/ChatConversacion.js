@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import perfilEjemplo from "../assets/perfil-generico.png";
 import config from "../config";
 import "./ChatConversacion.css";
 import Header from "../components/Header";
