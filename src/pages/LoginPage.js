@@ -56,10 +56,10 @@ function LoginPage() {
         </button>
         {mensaje && <p>{mensaje}</p>}
         <p>
-          ¿No tienes cuenta?{" "}
+          ¿No tienes cuenta?
           <span
             onClick={() => navigate("/registro")}
-            style={{ cursor: "pointer", color: "#FFA424", font_size: "3rem" }}
+            style={{ cursor: "pointer", color: "#FFA424", fontSize: "1rem" }}
           >
             Regístrate
           </span>
