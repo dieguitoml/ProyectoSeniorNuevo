@@ -64,7 +64,7 @@ export default function NuevoChatPage() {
             ))}
           </div>
         )}
-        <button className="btn" onClick={() => navigate("/chats")}>
+        <button className="btn" onClick={() => navigate("/chat")}>
           ← Volver
         </button>
       </main>
