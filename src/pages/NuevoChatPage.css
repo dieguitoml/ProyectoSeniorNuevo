@@ -1,51 +1,98 @@
-/* src/pages/NuevoChatPage.css */
 .nuevo-chat-page {
-  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f3f1, #ffffff);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
+  font-family: "Poppins", sans-serif;
+}
+
+.nuevo-chat-main {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem 6rem;
 }
 
 .empty {
   font-size: 1.2rem;
   color: #666;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .user-list {
-  list-style: none;
-  padding: 0;
-  width: 100%;
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-top: 1rem;
 }
 
 .user-item {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.5rem;
+  padding: 0.9rem 1rem;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.25s ease;
 }
 
 .user-item:hover {
-  background: #f0f0f0;
+  transform: translateY(-2px);
+  background: #f7fdfb;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .avatar {
-  width: 30px;
-  height: 30px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
-  margin-right: 0.75rem;
   object-fit: cover;
-  border: 2px solid #4A6B5D;
+  border: 2px solid #4a6b5d;
+  margin-right: 1rem;
+  transition: transform 0.2s ease;
 }
 
+.user-item:hover .avatar {
+  transform: scale(1.05);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
 
 .username {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 600;
   color: #333;
-} 
+}
+
+.status {
+  font-size: 1.5rem;
+  color: #777;
+  margin-top: 0.2rem;
+}
+
+.btn-volver {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4a6b5d;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn-volver:hover {
+  background: #5b7e6d;
+}
