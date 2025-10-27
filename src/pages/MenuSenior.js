@@ -6,7 +6,7 @@ function MenuSenior() {
 
   return (
     <div className="App">
-      <Header title="Menú" />
+      <Header title="Menú" showBack={false} showLogout={true} />
       <main className="form-page">
         <div className="menu-grid">
           <button
