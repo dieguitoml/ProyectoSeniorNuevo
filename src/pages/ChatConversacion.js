@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import perfilEjemplo from "../assets/perfil-generico.png";
 import config from "../config";
 import "./ChatConversacion.css";
+import Header from "../components/Header";
 
 export default function ChatConversacion() {
   const { chatId } = useParams();
@@ -69,23 +70,7 @@ export default function ChatConversacion() {
 
   return (
     <div className="chat-conversation">
-      <header className="new-app-header">
-        <button onClick={() => navigate("/chat")} className="header-btn back-btn">
-          <span>&larr;</span> Atrás
-        </button>
-        <div className="header-title chat-user-info">
-          <img
-            src={otherUser?.imagen || perfilEjemplo}
-            alt="Perfil"
-            className="chat-profile-pic"
-          />
-          <span>{otherUser?.name || "Cargando..."}</span>
-        </div>
-        <button onClick={() => navigate("/")} className="header-btn home-btn">
-          <span>&#8962;</span> Inicio
-        </button>
-      </header>
-
+      <Header className="new-app-header"  showBack={true} showTitle={false} showLogout={false} otherUser={otherUser}>
       <div className="mensajes-container" ref={mensajesContainerRef}>
         {mensajes.map((mensaje, index) => (
           <div
@@ -101,7 +86,7 @@ export default function ChatConversacion() {
           </div>
         ))}
       </div>
-
+      </Header>
       <form onSubmit={enviarMensaje} className="chat-input-container">
         <input
           type="text"

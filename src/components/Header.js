@@ -1,7 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Header.css';
+import perfilEjemplo from "../assets/perfil-generico.png";
 
-function Header({ title, showBack = true, showLogout = false  }) {
+
+function Header({ title, showBack = true, showLogout = false  , showTitle = true}) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,8 +29,34 @@ function Header({ title, showBack = true, showLogout = false  }) {
           <span>&larr;</span> Atrás
         </button>
       )}
-
-      <h1 className="header-title">{title}</h1>
+      {showTitle && ( 
+        <h1 className="header-title">{title}</h1>
+      )}
+      {/*
+      </header></button>
+        <div className="header-title chat-user-info">
+          <img
+            src={otherUser?.imagen || perfilEjemplo}
+            alt="Perfil"
+            className="chat-profile-pic"
+          />
+          <span>{otherUser?.name || "Cargando..."}</span>
+        </div>
+        <button onClick={() => navigate("/")} className="header-btn home-btn">
+          <span>&#8962;</span> Inicio
+        </button>*/ }
+      {!showTitle && (
+        <button>
+          <div className = "header-title chat-user-info">
+            <img
+              src={otherUser?.imagen || perfilEjemplo}
+              alt="Perfil"
+              className="chat-profile-pic"
+            />
+            <span>{otherUser?.name || "Cargando..."}</span>
+          </div>
+        </button>
+      )}
 
       {showLogout ? (
         <button onClick={handleLogout} className="header-btn logout-btn">
