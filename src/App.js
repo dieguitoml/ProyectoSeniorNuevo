@@ -35,7 +35,7 @@ function HomePage() {
           <div className="overlay">
             <h2>¿Eres Senior?</h2>
             <button className="btn senior-btn" style={{ backgroundColor: 'orange' }} onClick={() => navigate('/senior')}>
-               Entrar 
+              Entra r
             </button>
           </div>
         </div>
@@ -43,7 +43,7 @@ function HomePage() {
           <div className="overlay">
             <h2>¿No eres Senior?</h2>
             <button className="btn no-senior-btn" style={{ backgroundColor: '#236a3e' }} onClick={() => navigate('/login')}>
-              Entrar 
+              Entrar
             </button>
           </div>
         </div>
@@ -74,7 +74,7 @@ function App() {
         <Route path="/chat/:chatId" element={<ChatConversacion />} />
         <Route path="/nuevo-chat" element={<NuevoChatPage />} />
         <Route path="/buscar-anuncios-no-senior" element={<BuscarAnunciosNoSenior />} />
-        <Route path="/buscar-anuncios-senior" element={<BuscarAnunciosSenior />} /> 
+        <Route path="/buscar-anuncios-senior" element={<BuscarAnunciosSenior />} />
       </Routes>
     </Router>
   );

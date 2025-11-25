@@ -1,33 +1,30 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import ReactCrop from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
 import config from "../config";
+import "./miPerfilNoSenior.css";
 
 function MiPerfilNoSenior() {
   const navigate = useNavigate();
   const [nombre, setNombre] = useState("");
-  const [puesto, setPuesto] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [profileImage, setProfileImage] = useState(null);
-  const [originalProfileImage, setOriginalProfileImage] = useState(null);
   const [multimedia, setMultimedia] = useState([]);
-  const [imageSrc, setImageSrc] = useState(null);
-  const [crop, setCrop] = useState({ aspect: 1 / 1 });
-  const [completedCrop, setCompletedCrop] = useState(null);
-  const [showCropModal, setShowCropModal] = useState(false);
+  const [activeTab, setActiveTab] = useState("descripcion");
+  const [valoracion] = useState(4);
+  const [isEditing, setIsEditing] = useState(false);
+  const [etiquetas, setEtiquetas] = useState([]);
+  const [nuevaEtiqueta, setNuevaEtiqueta] = useState("");
+  const [sortBy, setSortBy] = useState("reciente");
 
   const fileInputRef = useRef(null);
   const multimediaInputRef = useRef(null);
-  const imgRef = useRef(null);
 
-  // cargar datos desde backend
+  // Cargar perfil
   useEffect(() => {
     const fetchPerfil = async () => {
       const usuario_id = localStorage.getItem("usuario_id");
       if (!usuario_id) return navigate("/login");
-
       const res = await fetch(`${config.backendUrl}/perfil/${usuario_id}`);
       if (res.ok) {
         const data = await res.json();
@@ -35,16 +32,14 @@ function MiPerfilNoSenior() {
         setDescripcion(data.descripcion || "");
         setProfileImage(data.foto_perfil || null);
         setMultimedia(data.multimedia || []);
+        setEtiquetas(data.etiquetas || []);
       }
     };
     fetchPerfil();
   }, [navigate]);
 
   const handleImageClick = () => {
-    if (profileImage) {
-      setImageSrc(originalProfileImage);
-      setShowCropModal(true);
-    } else {
+    if (isEditing) {
       fileInputRef.current.click();
     }
   };
@@ -52,18 +47,9 @@ function MiPerfilNoSenior() {
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        const result = reader.result;
-        setImageSrc(result);
-        setOriginalProfileImage(result);
-      });
-      reader.readAsDataURL(e.target.files[0]); // ya devuelve base64
-      setShowCropModal(true);
+      reader.onload = () => setProfileImage(reader.result);
+      reader.readAsDataURL(e.target.files[0]);
     }
-  };
-
-  const handleMultimediaClick = () => {
-    multimediaInputRef.current.click();
   };
 
   const handleMultimediaChange = (event) => {
@@ -71,199 +57,233 @@ function MiPerfilNoSenior() {
     const newMultimedia = files.map((file) => ({
       url: URL.createObjectURL(file),
       type: file.type,
+      titulo: "Nuevo Anuncio",
+      descripcion: "Descripción del anuncio",
+      precio: 0,
     }));
     setMultimedia((prev) => [...prev, ...newMultimedia]);
   };
 
-  // generar base64 del recorte
-  const getCroppedImg = (image, crop) => {
-    const canvas = document.createElement("canvas");
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-    const ctx = canvas.getContext("2d");
-
-    ctx.drawImage(
-      image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width,
-      crop.height
-    );
-
-    return new Promise((resolve) => {
-      resolve(canvas.toDataURL("image/png")); // devuelve base64
-    });
+  const renderStars = () => {
+    const total = 5;
+    return Array.from({ length: total }).map((_, i) => (
+      <span key={i} className={i < valoracion ? "star filled" : "star"}>
+        ★
+      </span>
+    ));
   };
 
-  // ...existing code...
+   const renderLittleStars = () => {
+    const total = 5;
+    return Array.from({ length: total }).map((_, i) => (
+      <span key={i} className={i < valoracion ? "little-stars filled" : "little-stars"}>
+        ★
+      </span>
+    ));
+  };
 
-// ...existing code...
-
-const handleCropSave = async () => {
-  if (completedCrop?.width && completedCrop?.height && imgRef.current) {
-    try {
-      const croppedImageBase64 = await getCroppedImg(
-        imgRef.current,
-        completedCrop
-      );
-
-      // Guardar en el backend primero
-      const usuario_id = localStorage.getItem("usuario_id");
-      const body = {
-        nombre_usuario: nombre,
-        descripcion: descripcion,
-        foto_perfil: croppedImageBase64,
-        multimedia: multimedia.map(m => m.url)
-      };
-
-      const res = await fetch(`${config.backendUrl}/perfil/${usuario_id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-
-      if (!res.ok) {
-        throw new Error("Error al actualizar la foto de perfil");
-      }
-
-      // Si el guardado fue exitoso, actualizamos el estado local
-      setProfileImage(croppedImageBase64);
-      setOriginalProfileImage(croppedImageBase64);
-      setShowCropModal(false);
-      alert("✅ Imagen actualizada correctamente");
-
-    } catch (err) {
-      console.error("Error:", err);
-      alert("❌ Error al guardar la imagen: " + err.message);
-    }
-  } else {
-    alert("❌ Por favor, selecciona un área para recortar");
-  }
-};
-
-// ...existing code...
-
-// ...existing code...
-
-  // guardar en backend
-  const handleSave = async () => {
-    const usuario_id = localStorage.getItem("usuario_id");
-    const body = {
-      nombre,
-      puesto,
-      descripcion,
-      foto_perfil: profileImage, // base64
-      multimedia: multimedia.map((m) => m.url),
-    };
-
-    try {
-      const res = await fetch(`${config.backendUrl}/perfil/${usuario_id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      if (!res.ok) throw new Error("Error al guardar perfil");
-      alert("✅ Perfil guardado correctamente");
-    } catch (err) {
-      alert("❌ " + err.message);
+  const agregarEtiqueta = () => {
+    if (nuevaEtiqueta.trim()) {
+      setEtiquetas([...etiquetas, nuevaEtiqueta]);
+      setNuevaEtiqueta("");
     }
   };
+
+  const eliminarEtiqueta = (index) => {
+    setEtiquetas(etiquetas.filter((_, i) => i !== index));
+  };
+
+  const multimediaOrdenada = [...multimedia].sort((a, b) => {
+    if (sortBy === "reciente") return 0;
+    if (sortBy === "precio-asc") return (a.precio || 0) - (b.precio || 0);
+    if (sortBy === "precio-desc") return (b.precio || 0) - (a.precio || 0);
+    return 0;
+  });
 
   return (
-    <div className="App">
-      <Header title="Mi Perfil" />
-      <main className="form-page">
-        <div className="profile-container">
-          {showCropModal && (
-            <div className="modal">
-              <div className="modal-content">
-                {imageSrc && (
-                  <ReactCrop
-                    crop={crop}
-                    onChange={(c) => setCrop(c)}
-                    onComplete={(c) => setCompletedCrop(c)}
-                  >
-                    <img ref={imgRef} src={imageSrc} alt="Source" />
-                  </ReactCrop>
-                )}
-                <button onClick={handleCropSave}>Guardar Recorte</button>
-                <button onClick={() => setShowCropModal(false)}>Cancelar</button>
-                <p>O sube una nueva imagen:</p>
-                <button onClick={() => fileInputRef.current.click()}>
-                  Subir otra imagen
-                </button>
+    <div className="perfil-page">
+      <div className="header-global">
+        <Header title="Mi Perfil" />
+        <div className="perfil-header-fixed">
+          <div className={`perfil-foto ${isEditing ? "editable" : ""}`} onClick={handleImageClick}>
+            {profileImage ? (
+              <img src={profileImage} alt="Perfil" />
+            ) : (
+              <div className="perfil-placeholder"></div>
+            )}
+            {isEditing && <div className="overlay-edit">📷</div>}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={onSelectFile}
+              style={{ display: "none" }}
+              accept="image/*"
+            />
+          </div>
+
+          <div className="perfil-info">
+            <div className="perfil-info-header">
+              <h2>{nombre || "Nombre del Usuario"}</h2>
+              <button 
+                className={`btn-editar ${isEditing ? "btn-guardar" : ""}`}
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                {isEditing ? "Guardar" : "Editar Perfil"}
+              </button>
+            </div>
+            <div className="perfil-stats">
+              <span>Seguidores <strong>25</strong></span>
+              <span>Seguidos   <strong>18</strong></span>
+            </div>
+            <div className="perfil-valoracion">
+            <div className="perfil-stars">{renderStars()}
+              </div>
+              <span className="numero-valoraciones">128 valoraciones</span>
+            </div>
+
+            <div className="perfil-tabs">
+          <button
+            className={activeTab === "descripcion" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("descripcion")}
+          >
+            Descripción
+          </button>
+          <button
+            className={activeTab === "anuncios" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("anuncios")}
+          >
+            Anuncios
+          </button>
+          <button
+            className={activeTab === "reseñas" ? "tab active" : "tab"}
+            onClick={() => setActiveTab("reseñas")}
+          >
+            Reseñas
+          </button>
+        </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="perfil-scroll-container">
+        <div className="perfil-content">
+          {activeTab === "descripcion" && (
+            <div className="perfil-descripcion-layout">
+              {/* LAYOUT FOTO + DESCRIPCIÓN */}
+              <div className="descripcion-layout">
+                
+
+                <div className="descripcion-main">
+                  {/* SECCIÓN ETIQUETAS */}
+                  <div className="etiquetas-section">
+                    <h4>Etiquetas</h4>
+                    <div className="etiquetas-container">
+                      {etiquetas.map((etiqueta, index) => (
+                        <div key={index} className="etiqueta-tag">
+                          <span>{etiqueta}</span>
+                          {isEditing && (
+                            <button 
+                              className="btn-eliminar-etiqueta"
+                              onClick={() => eliminarEtiqueta(index)}
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    {isEditing && (
+                      <div className="etiqueta-input-group">
+                        <input
+                          type="text"
+                          value={nuevaEtiqueta}
+                          onChange={(e) => setNuevaEtiqueta(e.target.value)}
+                          placeholder="Nueva etiqueta..."
+                          onKeyPress={(e) => e.key === "Enter" && agregarEtiqueta()}
+                        />
+                        <button onClick={agregarEtiqueta}>+ Añadir</button>
+                      </div>
+                    )}
+                  </div>
+
+                  <h3>Descripción</h3>
+                  {isEditing ? (
+                    <textarea
+                      className="descripcion-textarea"
+                      value={descripcion}
+                      onChange={(e) => setDescripcion(e.target.value)}
+                      placeholder="Escribe algo sobre ti..."
+                    />
+                  ) : (
+                    <div className="descripcion-texto">
+                      {descripcion || "No hay descripción disponible."}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
-          <div className="profile-header">
-            <div className="profile-pic-container" onClick={handleImageClick}>
-              {profileImage ? (
-                <img src={profileImage} alt="Perfil" className="profile-pic" />
-              ) : (
-                <div className="profile-pic-placeholder"></div>
-              )}
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={onSelectFile}
-                style={{ display: "none" }}
-                accept="image/*"
-              />
-            </div>
-            <div className="profile-info">
-              <input
-                type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                className="profile-name-input"
-              />
-              <input
-                type="text"
-                value={puesto}
-                onChange={(e) => setPuesto(e.target.value)}
-                className="profile-puesto-input"
-              />
-            </div>
-          </div>
-          <textarea
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-            className="profile-description-textarea"
-          />
-          <div className="multimedia-section" onClick={handleMultimediaClick}>
-            <h3>Multimedia</h3>
-            <div className="multimedia-grid">
-              {multimedia.map((media, index) => (
-                <div key={index} className="multimedia-item">
-                  {media.type && media.type.startsWith("image/") ? (
-                    <img src={media.url} alt={`media-${index}`} />
-                  ) : (
-                    <video src={media.url} controls />
-                  )}
+
+          {activeTab === "anuncios" && (
+            <div className="perfil-anuncios">
+              <div className="anuncios-header">
+                <div className="ordenar-por">
+                  <label>Ordenar por:</label>
+                  <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                    <option value="reciente">Más Reciente</option>
+                    <option value="precio-asc">Menor Precio</option>
+                    <option value="precio-desc">Mayor Precio</option>
+                  </select>
                 </div>
-              ))}
+              </div>
+
+              <div className="anuncios-grid">
+                {multimediaOrdenada.length > 0 ? (
+                  multimediaOrdenada.map((media, index) => (
+                    <div key={index} className="anuncio-card">
+                      <div className="anuncio-media">
+                        {media.type && media.type.startsWith("image/") ? (
+                          <img src={media.url} alt={`media-${index}`} />
+                        ) : (
+                          <video src={media.url} controls />
+                        )}
+                      </div>
+                      <div className="anuncio-info">
+                        <h4 className="anuncio-titulo">{media.titulo || "Título del anuncio"}</h4>
+                        <p className="anuncio-descripcion">{media.descripcion || "Descripción del anuncio"}</p>
+                        <div className="anuncio-precio">
+                          <span className="precio-cantidad">{media.precio || 0}€</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="sin-anuncios">No hay anuncios aún.</p>
+                )}
+              </div>
+              {isEditing && (
+                <>
+                  <button
+                    className="btn-anadir"
+                    onClick={() => multimediaInputRef.current.click()}
+                  >
+                    + Añadir Anuncio
+                  </button>
+                  <input
+                    type="file"
+                    ref={multimediaInputRef}
+                    onChange={handleMultimediaChange}
+                    style={{ display: "none" }}
+                    accept="image/*,video/*"
+                    multiple
+                  />
+                </>
+              )}
             </div>
-            <input
-              type="file"
-              ref={multimediaInputRef}
-              onChange={handleMultimediaChange}
-              style={{ display: "none" }}
-              accept="image/*,video/*"
-              multiple
-            />
-          </div>
-          <button className="btn login-btn" onClick={handleSave}>
-            Guardar
-          </button>
+          )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }
