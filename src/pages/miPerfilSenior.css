@@ -594,3 +594,152 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255, 149, 0, 0.3);
 }
+
+/* RESEÑAS SECTION */
+.perfil-resenas {
+  padding: 1rem;
+}
+
+.resenas-header {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f0f0 0%, #fafafa 100%);
+  border-radius: 12px;
+  border-left: 4px solid #ff9500;
+}
+
+.resenas-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.resenas-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rating-numero {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.resenas-stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.resenas-info p {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.resenas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.resena-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.resena-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.resena-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.resena-user {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.resena-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.resena-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.resena-autor {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #333;
+  font-weight: bold;
+}
+
+.resena-stats-small {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.resena-menu {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.resena-menu:hover {
+  color: #333;
+}
+
+.resena-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.resena-stars-rating {
+  display: flex;
+  gap: 0.25rem;
+  font-size: 1.2rem;
+}
+
+.resena-fecha {
+  font-size: 1.2rem;
+  color: #999;
+}
+
+.resena-texto {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.sin-resenas {
+  text-align: center;
+  color: #999;
+  font-size: 1rem;
+  padding: 2rem;
+}
