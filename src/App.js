@@ -12,6 +12,7 @@ import RegistroSeniorPaso1 from './pages/RegistroSeniorPaso1';
 import RegistroSeniorPaso2 from './pages/RegistroSeniorPaso2';
 import MenuNoSenior from './pages/MenuNoSenior';
 import MenuSenior from './pages/MenuSenior';
+import MiPerfilSenior from './pages/miPerfilSenior';
 import MiPerfilNoSenior from './pages/miPerfilNoSenior';
 import MisAnunciosNoSenior from './pages/misAnunciosNoSenior';
 import AnuncioDetalle from './pages/AnuncioDetalle';
@@ -35,7 +36,7 @@ function HomePage() {
           <div className="overlay">
             <h2>¿Eres Senior?</h2>
             <button className="btn senior-btn" style={{ backgroundColor: 'orange' }} onClick={() => navigate('/senior')}>
-              Entra r
+              Entrar
             </button>
           </div>
         </div>
@@ -66,7 +67,7 @@ function App() {
         <Route path="/registro-senior-paso-2" element={<RegistroSeniorPaso2 />} />
         <Route path="/menu-no-senior" element={<MenuNoSenior />} />
         <Route path="/menu-senior" element={<MenuSenior />} />
-        <Route path="/mi-perfil-senior" element={<MiPerfilNoSenior />} />
+        <Route path="/mi-perfil-senior" element={<MiPerfilSenior />} />
         <Route path="/mi-perfil-no-senior" element={<MiPerfilNoSenior />} />
         <Route path="/mis-anuncios" element={<MisAnunciosNoSenior />} />
         <Route path="/anuncio/:id" element={<AnuncioDetalle />} />
