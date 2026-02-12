@@ -196,10 +196,6 @@ function MiPerfilSenior() {
           </div>
           </div>
         </div>
-
-        <div className="perfil-tabs-wrapper">
-          
-        </div>
       </div>
 
       <div className="perfil-scroll-container">
